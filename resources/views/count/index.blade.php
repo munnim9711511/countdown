@@ -21,7 +21,7 @@
     <div class="col-md-2 container">
         <div class="card" ">
             <div class="card-body">
-             <h2 class="text-center" style="
+             <h2 class="text-center" id="" style="
              font-size: 6em;
              font-weight: bolder;
              color: #f8319c;">{{$count->remaining_days}}</h2>
@@ -51,11 +51,15 @@
                             {{$notice->title}}
                         </span>
                         <span class="h6" style="float:right">
-                            <i class="material-icons" style="vertical-align: bottom">date_range</i>  {{\Carbon\Carbon::parse($count->e_date)->format('D, M Y')}}
+                            <i class="material-icons" style="vertical-align: bottom">date_range</i>
+                            <span id="dateT">
+                                {{\Carbon\Carbon::parse($count->e_date)->format('D, M Y')}}
+
+                            </span>
                         </h3>
                         </span>
                         <hr>
-                        <h5>
+                        <h5 id="detail">
                             {{$notice->detail}}
                         </h5>
                     </div>
