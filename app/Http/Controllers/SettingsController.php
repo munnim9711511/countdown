@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Roles;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
-class LoginControll extends Controller
+class SettingsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +16,8 @@ class LoginControll extends Controller
      */
     public function index()
     {
-        //
+        $user = new User();
+        return view('settings.index',['users'=>$user->with('roles')->get()]);
     }
 
     /**
@@ -21,9 +25,22 @@ class LoginControll extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $user = new User();
+        $user->password = Hash::make($request->password);
+        $user->name = $request->user;
+        $user->save();
+
+        $last = User::where('name', $request->user)->first();
+
+        foreach ($request->roles as $value) {
+           $role = new Roles();
+           $role->user_id = $last->id;
+           $role->name =$value;
+           $role->save();
+        }
+        return redirect('/settings');
     }
 
     /**

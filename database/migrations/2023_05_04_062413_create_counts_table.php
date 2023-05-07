@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('counts', function (Blueprint $table) {
             $table->id();
             $table->dateTime('s_date');
+            $table->dateTime('e_date');
             $table->integer('remaining_days');
             $table->timestamps();
         });
