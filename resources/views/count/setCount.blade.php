@@ -4,10 +4,7 @@
 
         <div class="row">
             @csrf
-            <div class="col-md-2 form-group">
-                <label for="">Set Count Total</label>
-                <input required name="rnumber" type="number" class="form-control">
-            </div>
+           
             <div class="col-md-2 form-group">
                 <label for="">Set Start Date</label>
                 <input required name="sdate" type="date" class="form-control">

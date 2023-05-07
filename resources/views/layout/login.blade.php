@@ -22,7 +22,7 @@
     <title>Document</title>
 </head>
 
-<body>
+<body style="background-color: whitesmoke">
     <div class="container-fluid">
         <div class="row">
 

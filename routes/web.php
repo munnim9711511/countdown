@@ -7,7 +7,9 @@ use App\Http\Controllers\SettingsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
-
+use App\Models\Roles;
+use App\Models\User;
+use App\Models\Notice;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,6 +32,7 @@ Route::middleware('auth')->group(function(){
     Route::post('/notice/update',[NoticeController::class,'update']);
     Route::get('/settings',[SettingsController::class,'index']);
     Route::post('/settings/create',[SettingsController::class,'create']);
+ 
 });
 
 Route::get('/login',[LoginController::class,'index'])->name('login');
@@ -41,5 +44,23 @@ Route::get('/logout',function(){
 
     return redirect('login');
 });
+Route::get('/latest/get-latest', function () {
+    $notice = new Notice();
+    return $notice->latest()->first();
+});
+// Route::get('/creat-user',function(){
+
+//     $user = new User();
+//     $user->password = Hash::make('Welcome@123');
+//     $user->name = 'admin';
+//     $user->save();
+
+//     $last = User::where('name','admin')->first();
+//     $role = new Roles();
+//     $role->user_id = $last->id;
+//     $role->name ='Admin';
+//     $role->save();
+//     return 'user created';
+// });
 
 
