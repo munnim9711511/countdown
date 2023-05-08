@@ -22,7 +22,7 @@ use App\Models\Notice;
 */
 
 Route::get('/',[CountController::class,'index']);
-Route::middleware('auth')->group(function(){
+Route::middleware(['auth'])->group(function(){
     Route::get('/set-count',[CountController::class,'setCount']);
     Route::post('/set-counter',[CountController::class,'post']);
     Route::get('/notice',[NoticeController::class,'index']);
@@ -30,9 +30,9 @@ Route::middleware('auth')->group(function(){
     Route::get('/notice/{id}',[NoticeController::class,'delete']);
     Route::get('/notice/edit/{id}',[NoticeController::class,'edit']);
     Route::post('/notice/update',[NoticeController::class,'update']);
-    Route::get('/settings',[SettingsController::class,'index']);
+    Route::get('/settings',[SettingsController::class,'index'])->middleware(['can:admin_role']);
     Route::post('/settings/create',[SettingsController::class,'create']);
- 
+
 });
 
 Route::get('/login',[LoginController::class,'index'])->name('login');
@@ -48,19 +48,19 @@ Route::get('/latest/get-latest', function () {
     $notice = new Notice();
     return $notice->latest()->first();
 });
-// Route::get('/creat-user',function(){
+Route::get('/creat-user',function(){
 
-//     $user = new User();
-//     $user->password = Hash::make('Welcome@123');
-//     $user->name = 'admin';
-//     $user->save();
+    $user = new User();
+    $user->password = Hash::make('Welcome@123');
+    $user->name = 'admin';
+    $user->save();
 
-//     $last = User::where('name','admin')->first();
-//     $role = new Roles();
-//     $role->user_id = $last->id;
-//     $role->name ='Admin';
-//     $role->save();
-//     return 'user created';
-// });
+    $last = User::where('name','admin')->first();
+    $role = new Roles();
+    $role->user_id = $last->id;
+    $role->name ='Admin';
+    $role->save();
+    return 'user created';
+});
 
 

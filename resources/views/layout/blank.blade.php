@@ -42,12 +42,15 @@
                     <i class="material-icons" style="vertical-align: bottom">access_time</i>
                     Count Down
                 </a>
-                @if (auth()->user()->roles()->where('name', 'Admin')->first() !== null)
-                    <a href="/settings" class="{{ Request::path() === 'settings' ? 'active' : 'link' }} btn">
-                        <i class="material-icons" style="vertical-align: bottom">mood</i>
-                        User Manage
-                    </a>
-                @endif
+                {{-- @if (auth()->user()->roles()->where('name', 'Admin')->first() !== null) --}}
+                @can('admin_role')
+                <a href="/settings" class="{{ Request::path() === 'settings' ? 'active' : 'link' }} btn">
+                    <i class="material-icons" style="vertical-align: bottom">mood</i>
+                    User Manage
+                </a>
+                @endcan
+
+                {{-- @endif --}}
                 <a href="/logout" class=" btn link">
                     <i class="material-icons" style="vertical-align: bottom">exit_to_app</i>
                     Logout
